@@ -28,10 +28,10 @@ if (isset($_POST['album'])){
     }else{
         $file = '';
         $file .= "<?xml version='1.0' encoding='UTF-8' standalone='no' ?>\n";
-$file .= "<Albumi>\n";
-    $file .= $ispis;
-    $file .= "</Albumi>\n";
-file_put_contents($filename, $file);
-}
-die('Uspješno generiran XML!');
-}
+        $file .= "<Albumi>\n";
+        $file .= $ispis;
+        $file .= "</Albumi>\n";
+        file_put_contents($filename, $file);
+    }
+    die('Uspješno generiran XML!');
+}?>
