@@ -63,7 +63,7 @@ file_put_contents($filename, $file);
                         <li><a href="#politique">POLITIQUE</a></li>
                         <li><a href="#immobilier">IMMOBILIER</a></li>
                         <li><a href="administracija.html">ADMINISTRACIJA</a></li>
-                        <li><a href="xml-form.html">Unos XML</a></li>
+                        <li><a href="xml-projekt.php">Unos XML</a></li>
                         <li><a target="_blank" href="Albumi.xml">Pregled
                                 XML</a></li>
                         <li><a href="javascript:void(0);" class="icon" onclick="menu()">
