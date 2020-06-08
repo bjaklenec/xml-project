@@ -1,7 +1,7 @@
 <?php  
 
-if (isset($_POST['album'])){
-    $album = $_POST['album'];
+if(isset($_POST['gumb'])){
+$album = $_POST['album'];
     $izvodac = $_POST['izvodac'];
     $godina = $_POST['godina'];
     $zanr = $_POST['zanr'];
@@ -34,7 +34,10 @@ $file .= "<Albumi>\n";
 file_put_contents($filename, $file);
 }
 
+
+
 }?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -42,10 +45,10 @@ file_put_contents($filename, $file);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style6.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600&display=swap" rel="stylesheet">
-    <title>Le Nouvel Observateur</title>
+    <title>XML | L'Obs</title>
 </head>
 
 <body>
@@ -53,18 +56,19 @@ file_put_contents($filename, $file);
 
         <div class="clearfix">
             <div class="logo">
-                <img class="in_img" src="img/logo.svg" style="width: 200px;" alt="">
+                <img src="img/logo.svg" style="width: 200px;" alt="">
             </div>
 
             <nav>
                 <ul>
                     <div class="topnav" id="myTopnav">
-                        <li><a href="index.html">HOME</a></li>
-                        <li><a href="#politique">POLITIQUE</a></li>
-                        <li><a href="#immobilier">IMMOBILIER</a></li>
-                        <li><a href="administracija.html">ADMINISTRACIJA</a></li>
-                        <li><a href="xml-projekt.php">Unos XML</a></li>
-                        <li><a target="_blank" href="Albumi.xml">Pregled
+                        <li><a href="index.php">HOME</a></li>
+                        <li><a href="administracija.php">ADMINISTRACIJA</a></li>
+                        <li><a href="kategorija.php?id=Glazba" class="">GLAZBA</a></li>
+                        <li><a href="kategorija.php?id=Sport">SPORT</a></li>
+                        <li><a href="unos_vijesti.html">UNOS VIJESTI</a></li>
+                        <li><a href="xml-projekt.php">UNOS XML</a></li>
+                        <li><a target="_blank" href="Albumi.xml">PREGLED
                                 XML</a></li>
                         <li><a href="javascript:void(0);" class="icon" onclick="menu()">
                                 <i class="fa fa-bars"></i>
@@ -74,7 +78,7 @@ file_put_contents($filename, $file);
                 </ul>
             </nav>
         </div>
-        <script>
+        <script type="text/javascript">
         function menu() {
             var x = document.getElementById("myTopnav");
             if (x.className === "topnav") {
@@ -91,49 +95,126 @@ file_put_contents($filename, $file);
     <main>
         <div class="wrapper">
             <div class="clearfix">
-                <form action="xml-projekt.php" method="POST">
+                <form enctype="multipart/form-data" action="xml-projekt.php" method="POST">
                     <div class="forma">
                         <label for="album">Ime albuma</label><br>
-                        <input type="text" name="album" id="album"><br><br>
+                        <input type="text" name="album" id="album"><br>
+                        <span id="porukaAlbum" style="color: red;"></span>
+                        <br><br>
                     </div>
 
                     <div class="forma">
                         <label for="izvodac">Izvođač</label><br>
-                        <input type="text" name="izvodac" id="izvodac"><br><br>
+                        <input type="text" name="izvodac" id="izvodac"><br>
+                        <span id="porukaIzvodac" style="color: red;"></span>
+                        <br><br>
                     </div>
 
 
                     <div class="forma">
                         <label for="godina">Godina izdanja</label><br>
-                        <input type="number" name="godina" id="godina"><br><br>
+                        <input type="number" name="godina" id="godina"><br>
+                        <span id="porukaGodina" style="color: red;"></span>
+                        <br><br>
                     </div>
 
                     <div class="forma">
                         <label for="zanr">Žanr albuma</label><br>
-                        <input type="text" name="zanr" id="zanr"><br><br>
+                        <input type="text" name="zanr" id="zanr"><br>
+                        <span id="porukaZanr" style="color: red;"></span>
+                        <br><br>
                     </div>
 
                     <div class="forma">
                         <label for="prijedlog">Predlažete li album</label><br>
                         <select name="prijedlog" id="prijedlog">
+                            <option disabled selected value>Odaberite
+                                kategoriju</option>
                             <option value="Predlažem">Da</option>
                             <option value="Ne predlažem">Ne</option>
-                        </select><br><br>
+                        </select><br>
+                        <span id="porukaPrijedlog" style="color: red;"></span><br><br>
                     </div>
 
                     <div class="forma">
                         <label for="ocjena">Vaša ocjena albuma</label><br>
                         <input type="range" min="1" max="5" step="1" class="slider" name="ocjena" id="ocjena"><br>
-
                         <span id="prikaz"></span><br><br>
-                        <button class="button" type="submit">Spremi kao XML</button>
+                        <button id="gumb" class="button" type="submit" name="gumb">Spremi
+                            kao XML</button>
                     </div>
                 </form>
             </div>
         </div>
+        <script type="text/javascript">
+        document.getElementById("gumb").onclick = function(event) {
+            var slanje_forme = true
+
+            var poljeAlbum = document.getElementById("album")
+            var album = poljeAlbum.value
+
+            if (album.length == 0) {
+                slanje_forme = false;
+                poljeAlbum.style.border = "1px dashed red"
+                document.getElementById("porukaAlbum").innerHTML = "Unesite ime albuma!"
+            } else {
+                poljeAlbum.style.border = "1px solid green"
+                document.getElementById("porukaAlbum").innerHTML = ""
+            }
+
+            var poljeIzvodac = document.getElementById("izvodac")
+            var izvodac = poljeIzvodac.value
+
+            if (izvodac.length == 0) {
+                slanje_forme = false;
+                poljeIzvodac.style.border = "1px dashed red"
+                document.getElementById("porukaIzvodac").innerHTML = "Unesite ime izvođača!"
+            } else {
+                poljeIzvodac.style.border = "1px solid green"
+                document.getElementById("porukaIzvodac").innerHTML = ""
+            }
+
+            var poljeGodina = document.getElementById("godina")
+            var godina = poljeGodina.value
+
+            if (godina < 1900 || godina > 2100) {
+                slanje_forme = false;
+                poljeGodina.style.border = "1px dashed red"
+                document.getElementById("porukaGodina").innerHTML = "Unesite valjanu godinu!"
+            } else {
+                poljeGodina.style.border = "1px solid green"
+                document.getElementById("porukaGodina").innerHTML = ""
+            }
+
+            var poljeZanr = document.getElementById("zanr")
+            var zanr = poljeZanr.value
+
+            if (zanr.length == 0) {
+                slanje_forme = false;
+                poljeZanr.style.border = "1px dashed red"
+                document.getElementById("porukaZanr").innerHTML = "Unesite žanr albuma!"
+            } else {
+                poljeZanr.style.border = "1px solid green"
+                document.getElementById("porukaZanr").innerHTML = ""
+            }
+
+            var poljePrijedlog = document.getElementById("prijedlog")
+
+            if (document.getElementById("prijedlog").selectedIndex == 0) {
+                slanje_forme = false;
+                poljePrijedlog.style.border = "1px dashed red"
+                document.getElementById("porukaPrijedlog").innerHTML = "Odaberite jednu od opcija!"
+            } else {
+                poljePrijedlog.style.border = "1px solid green"
+                document.getElementById("porukaPrijedlog").innerHTML = ""
+            }
+
+            if (slanje_forme != true) event.preventDefault()
+        }
+        </script>
     </main>
 
-    <script>
+    <script type="text/javascript">
     var ocjena = document.getElementById("ocjena")
     var prikaz = document.getElementById("prikaz")
     prikaz.innerHTML = ocjena.value
