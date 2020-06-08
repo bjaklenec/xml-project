@@ -13,5 +13,8 @@ Unos podataka
 
 ![image](https://user-images.githubusercontent.com/66021754/83508788-b974a580-a4ca-11ea-8c28-44b592d5abbf.png)
 
+Validacija
+
+
 Ispis podataka
 ![image](https://user-images.githubusercontent.com/66021754/83508830-c6919480-a4ca-11ea-98a9-84684e568994.png)
